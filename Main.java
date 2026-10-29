@@ -1,24 +1,45 @@
 public class Main {
-    static void mostrar(String chamada, boolean resultado) {
-        System.out.println(chamada + " -> " + resultado);
+    static void ancestral(String a, String b) {
+        boolean r = Dinastias.ehAncestral(a, b);
+        System.out.println("ehAncestral(\"" + a + "\", \"" + b + "\") -> " + (r ? "TRUE" : "FALSE"));
+    }
+
+    static void irmaos(String a, String b) {
+        boolean r = Dinastias.saoIrmaos(a, b);
+        System.out.println("saoIrmaos(\"" + a + "\", \"" + b + "\") -> " + (r ? "TRUE" : "FALSE"));
+    }
+
+    static void primos(String a, String b) {
+        boolean r = Dinastias.saoPrimos(a, b);
+        System.out.println("saoPrimos(\"" + a + "\", \"" + b + "\") -> " + (r ? "TRUE" : "FALSE"));
     }
 
     public static void main(String[] args) throws Exception {
         Dinastias.carregar("Relacoes.txt");
 
-        mostrar("ehAncestral(Rickard Stark, Robb Stark)",
-                Dinastias.ehAncestral("Rickard Stark", "Robb Stark"));
-        mostrar("ehAncestral(Rickard Stark, Jon Snow)",
-                Dinastias.ehAncestral("Rickard Stark", "Jon Snow"));
-        mostrar("ehAncestral(Aerys II Targaryen, Jon Snow)",
-                Dinastias.ehAncestral("Aerys II Targaryen", "Jon Snow"));
-        mostrar("saoIrmaos(Robb Stark, Sansa Stark)",
-                Dinastias.saoIrmaos("Robb Stark", "Sansa Stark"));
-        mostrar("saoIrmaos(Robb Stark, Jon Snow)",
-                Dinastias.saoIrmaos("Robb Stark", "Jon Snow"));
-        mostrar("saoPrimos(Robb Stark, Jon Snow)",
-                Dinastias.saoPrimos("Robb Stark", "Jon Snow"));
-        mostrar("ehAncestral(Rickard Stark, Pessoa Inexistente)",
-                Dinastias.ehAncestral("Rickard Stark", "Pessoa Inexistente"));
+        System.out.println("7.1 Casos validos");
+        ancestral("Rickard Stark", "Robb Stark");
+        ancestral("Rickard Stark", "Jon Snow");
+        ancestral("Aerys II Targaryen", "Jon Snow");
+        ancestral("Robb Stark", "Rickard Stark");
+        ancestral("Tywin Lannister", "Jon Snow");
+        irmaos("Robb Stark", "Sansa Stark");
+        irmaos("Cersei Lannister", "Jaime Lannister");
+        irmaos("Robb Stark", "Jon Snow");
+        primos("Robb Stark", "Jon Snow");
+        primos("Jaime Lannister", "Lancel Lannister");
+        primos("Robb Stark", "Sansa Stark");
+        primos("Robb Stark", "Cersei Lannister");
+
+        System.out.println();
+        System.out.println("7.2 Casos invalidos");
+        ancestral("Rickard Stark", "Pessoa Inexistente");
+        ancestral("Pessoa Inexistente", "Robb Stark");
+        ancestral("Rickard Stark", "Rickard Stark");
+        irmaos("Robb Stark", "Pessoa Inexistente");
+        irmaos("Robb Stark", "Robb Stark");
+        irmaos("Willam Stark", "Maekar I Targaryen");
+        primos("Robb Stark", "Pessoa Inexistente");
+        primos("Jon Snow", "Jon Snow");
     }
 }
